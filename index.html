@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eccentric Strength Training</title>
+  <title>Isometrics Training</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #111; min-height: 100vh; padding: 1.5rem 1rem 3rem; }
@@ -33,20 +33,24 @@
 </head>
 <body>
   <div class="container">
-    <h1>Eccentric Strength Training</h1>
+    <h1>Isometrics Training</h1>
     <div class="progress-bar" id="progressBar"></div>
+
     <div class="video-wrapper" id="videoWrapper">
       <iframe id="ytFrame" allowfullscreen allow="autoplay; encrypted-media"></iframe>
     </div>
+
     <div class="info-row">
       <div class="exercise-label" id="exerciseLabel"></div>
       <div class="exercise-name" id="exerciseName"></div>
-      <span class="reps-badge" id="repsBadge">2 x 6-8</span>
+      <span class="reps-badge" id="repsBadge">2 x 10''</span>
     </div>
+
     <div class="btn-row">
       <button class="btn" id="btnPrev" onclick="changeVideo(-1)">&#8592; Previous</button>
       <button class="btn primary" onclick="changeVideo(1)">Next &#8594;</button>
     </div>
+
     <div class="done-banner" id="doneBanner">
       <div style="font-size:48px; color:#1D9E75; margin-bottom:0.5rem;">✓</div>
       <h2>Training complete!</h2>
@@ -54,17 +58,20 @@
       <button class="btn primary" onclick="restartTraining()" style="margin: 0 auto; max-width: 200px;">↺ Repeat training</button>
     </div>
   </div>
+
   <script>
     const exercises = [
-      { name: "Eccentric Strength - Exercise 1", id: "VIjQSsqXvVM" },
-      { name: "Eccentric Strength - Exercise 2", id: "-9fzPA2DEOU" },
-      { name: "Eccentric Strength - Exercise 3", id: "pMNU2t3Qn20" },
-      { name: "Eccentric Strength - Exercise 4", id: "zksBvMLx_H4" },
-      { name: "Eccentric Strength - Exercise 5", id: "KTPYa-4ugmQ" },
-      { name: "Eccentric Strength - Exercise 6", id: "gx9F_knSqsE" },
-      { name: "Eccentric Strength - Exercise 7", id: "Igqu2dNYDNY" },
+      { name: "Isometrics - Exercise 1", id: "-Ofip5RGJ3M" },
+      { name: "Isometrics - Exercise 2", id: "JrUIJP-pFdY" },
+      { name: "Isometrics - Exercise 3", id: "GxEbsIYcal8" },
+      { name: "Isometrics - Exercise 4", id: "5uSgdS-Sfvg" },
+      { name: "Isometrics - Exercise 5", id: "IYdMp1BK8ww" },
+      { name: "Isometrics - Exercise 6", id: "h6hgI8rSpWA" },
+      { name: "Isometrics - Exercise 7", id: "T44OLK5KSHY" },
     ];
+
     let current = 0;
+
     function buildProgress() {
       const bar = document.getElementById('progressBar');
       bar.innerHTML = '';
@@ -76,11 +83,15 @@
         bar.appendChild(d);
       });
     }
+
     function goTo(idx) { current = idx; render(); }
+
     function render() {
       const ex = exercises[current];
-      document.getElementById('ytFrame').src = 'https://www.youtube.com/embed/' + ex.id + '?rel=0&modestbranding=1';
-      document.getElementById('exerciseLabel').textContent = 'Exercise ' + (current + 1) + ' of ' + exercises.length;
+      document.getElementById('ytFrame').src =
+        'https://www.youtube.com/embed/' + ex.id + '?rel=0&modestbranding=1';
+      document.getElementById('exerciseLabel').textContent =
+        'Exercise ' + (current + 1) + ' of ' + exercises.length;
       document.getElementById('exerciseName').textContent = ex.name;
       document.getElementById('btnPrev').disabled = current === 0;
       document.getElementById('videoWrapper').style.display = 'block';
@@ -88,6 +99,7 @@
       document.getElementById('repsBadge').style.display = 'inline-block';
       buildProgress();
     }
+
     function changeVideo(dir) {
       const next = current + dir;
       if (next < 0) return;
@@ -95,12 +107,15 @@
         document.getElementById('videoWrapper').style.display = 'none';
         document.getElementById('doneBanner').style.display = 'block';
         document.getElementById('repsBadge').style.display = 'none';
-        document.getElementById('progressBar').querySelectorAll('.prog-dot').forEach(d => d.className = 'prog-dot done');
+        document.getElementById('progressBar').querySelectorAll('.prog-dot')
+          .forEach(d => d.className = 'prog-dot done');
         return;
       }
       goTo(next);
     }
+
     function restartTraining() { current = 0; render(); }
+
     render();
   </script>
 </body>
